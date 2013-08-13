@@ -128,11 +128,11 @@ falsify('map2 vs map3',
 
 
 # higher order cont
-def even_doubles(xs):
+def double_evens(xs):
     return doubles(filter(lambda x: x % 2 == 0, xs))
 
 
-def even_doubles1(xs):
+def double_evens1(xs):
     return doubles(filter(_ % 2 == 0, xs))
 
 
@@ -141,7 +141,7 @@ def compose(f, g):
 
 
 # point free (mostly)
-def even_doubles2(xs):
+def double_evens2(xs):
     return doubles(filter(F(eq, 0) << F(flip(mod), 2), xs))
 
 
@@ -159,27 +159,27 @@ falsify('flip1', lambda x, y: flip1(sub)(y, x) == sub(x, y), int, int)
 even1 = F(flip(mod), 2) >> F(eq, 0)
 
 
-def even_doubles3(xs):
+def double_evens3(xs):
     return doubles(filter(even1, xs))
 
 
-even_doubles4 = F(filter, even1) >> doubles
+double_evens4 = F(filter, even1) >> doubles
 
 
-falsify('even_doubles vs even_doubles1',
-        lambda xs: list(even_doubles(xs)) == list(even_doubles1(xs)), [int])
-falsify('even_doubles1 vs even_doubles2',
-        lambda xs: list(even_doubles1(xs)) == list(even_doubles2(xs)), [int])
-falsify('even_doubles2 vs even_doubles3',
-        lambda xs: list(even_doubles2(xs)) == list(even_doubles3(xs)), [int])
-falsify('even_doubles3 vs even_doubles4',
-        lambda xs: list(even_doubles3(xs)) == list(even_doubles4(xs)), [int])
+falsify('double_evens vs double_evens1',
+        lambda xs: list(double_evens(xs)) == list(double_evens1(xs)), [int])
+falsify('double_evens1 vs double_evens2',
+        lambda xs: list(double_evens1(xs)) == list(double_evens2(xs)), [int])
+falsify('double_evens2 vs double_evens3',
+        lambda xs: list(double_evens2(xs)) == list(double_evens3(xs)), [int])
+falsify('double_evens3 vs double_evens4',
+        lambda xs: list(double_evens3(xs)) == list(double_evens4(xs)), [int])
 
 
-sum_even_doubles = even_doubles4 >> sum
+sum_double_evens = double_evens4 >> sum
 
 
-assert sum_even_doubles(range(5)) == 12
+assert sum_double_evens(range(5)) == 12
 
 
 # higher order cont.
