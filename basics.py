@@ -1,7 +1,7 @@
 from operator import mul, add, mod, eq, sub
 from functools import partial
 from fn.uniform import reduce, map, filter
-from fn.iters import head, tail, nth
+from fn.iters import nth
 from fn.op import flip
 from fn import F, _
 import hypothesis
@@ -240,3 +240,9 @@ def map4(f, xs):
 
 falsify('map3 vs map4',
         lambda xs: map3(F(mul, 2), xs) == map4(F(mul, 2), xs), [int])
+
+
+fac2 = F(flip(F(reduce, mul)), 1) << F(range, 1) << F(add, 1)
+
+
+falsify('fac1 vs fac2', lambda n: not n < 50 or fac1(n) == fac2(n), int)
