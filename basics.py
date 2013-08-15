@@ -36,11 +36,22 @@ falsify('fac vs fac1', lambda n: not n < 50 or fac(n) == fac1(n), int)
 def mul2(x, y):
     return x * y
 
+
 mul3 = lambda x, y: x * y
+
+
+class MulClass(object):
+
+    def __call__(self, x, y):
+        return x * y
+
+
+mul4 = MulClass()
 
 
 falsify('mul vs mul2', lambda x, y: mul(x, y) == mul2(x, y), int, int)
 falsify('mul2 vs mul3', lambda x, y: mul2(x, y) == mul3(x, y), int, int)
+falsify('mul3 vs mul4', lambda x, y: mul3(x, y) == mul4(x, y), int, int)
 
 
 # higher order cont
