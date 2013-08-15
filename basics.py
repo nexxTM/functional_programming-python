@@ -61,7 +61,7 @@ def reduce2(f, xs, start):
 
 def reduce3(f, xs, accumulator):
     if xs:
-        return reduce2(f, xs[1:], f(xs[0], accumulator))
+        return reduce3(f, xs[1:], f(xs[0], accumulator))
     else:
         return accumulator
 
