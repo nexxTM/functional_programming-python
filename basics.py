@@ -232,3 +232,11 @@ falsify('filter2 vs filter3',
         lambda xs: filter2(even, xs) == filter3(even, xs), [int])
 falsify('filter3 vs filter4',
         lambda xs: filter3(even, xs) == list(filter4(even, xs)), [int])
+
+
+def map4(f, xs):
+    return reduce(lambda ys, y: ys + [f(y)], xs, [])
+
+
+falsify('map3 vs map4',
+        lambda xs: map3(F(mul, 2), xs) == map4(F(mul, 2), xs), [int])
